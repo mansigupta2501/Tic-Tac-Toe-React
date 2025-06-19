@@ -72,6 +72,7 @@ export default function TicTacToe() {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
     setWinner(null);
+    setTie(false);
   };
 
   return (
