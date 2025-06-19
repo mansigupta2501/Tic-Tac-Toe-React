@@ -1,15 +1,19 @@
 .container {
-    text-align: center;
-
+   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
 .title {
     margin-top: 50px;
     color: aliceblue;
-    font-size: 40px;
+    font-size: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+  flex-wrap: wrap;
 }
 
 .title span {
@@ -31,35 +35,58 @@
     margin-bottom: 50px;
 }
 
-.boxes {
-    display: flex;
-    height: 120px;
-    width: 120px;
-    background: #1f3540;
-    border: 4px solid #0f1b21;
-    border-radius: 12px;
-    cursor: pointer;
+.board {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 5px;
+    width: 90vw;
+    max-width: 360px;
+    margin: 0 auto;
 }
 
-.board {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 400px;
+.boxes {
+     background: #1f3540;
+  border: 4px solid #0f1b21;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* ✅ keeps boxes square */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .boxes img {
-    margin: 25px;
+    width: 60%;
+  height: 60%;
 }
 
-.title img {
-    width: 40px;
-    margin: 20px;
+.winnerbox{
+    background:  #4caf50	;
+    transition: background-color 0.3s ease;
 }
-
 .instructionsStyle {
-    margin-top: '5px';
-    margin-bottom: '5px';
-    font-weight: 'bold';
-    font-size: '16px';
+     margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .board {
+    gap: 8px;
+    max-width: 280px;
+  }
+
+  .reset {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .title {
+    font-size: 1.4rem;
+  }
 }

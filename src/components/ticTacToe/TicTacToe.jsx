@@ -3,9 +3,9 @@ import "./TicTacToe.css";
 import circle_icon from "../assets/circle.png";
 import cross_icon from "../assets/cross.png";
 
-function Square({ value, onClick }) {
+function Square({ value, onClick, isWinner }) {
   return (
-    <div className="boxes" onClick={onClick}>
+    <div className={isWinner ? " winnerbox boxes" : "boxes"} onClick={onClick} >
       {value === "X" && <img src={cross_icon} alt="X" />}
       {value === "O" && <img src={circle_icon} alt="O" />}
     </div>
@@ -17,6 +17,8 @@ export default function TicTacToe() {
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
   const [tie, setTie] = useState(false);
+  const [winningSquares, setWinningSquares] = useState([])
+
 
   const handleClick = (index) => {
     if (squares[index] || winner) return;
@@ -40,8 +42,10 @@ export default function TicTacToe() {
   console.log({tie, squares});
   
 
-  const renderSquare = (num) => {
-    return <Square value={squares[num]} onClick={() => handleClick(num)} />;
+  const renderSquare = (index) => {
+    return <Square key={index}
+    isWinner={winningSquares.includes(index)} 
+    value={squares[index]} onClick={() => handleClick(index)} />;
   };
 
   const checkWin = (squares) => {
@@ -62,6 +66,7 @@ export default function TicTacToe() {
         squares[a] === squares[b] &&
         squares[a] === squares[c]
       ) {
+        setWinningSquares([a,b,c])
         return squares[a];
       }
     }
@@ -72,6 +77,7 @@ export default function TicTacToe() {
     setSquares(Array(9).fill(null));
     setXIsNext(true);
     setWinner(null);
+    setWinningSquares([]);
     setTie(false);
   };
 
