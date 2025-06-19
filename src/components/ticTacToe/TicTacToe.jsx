@@ -16,19 +16,29 @@ export default function TicTacToe() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [winner, setWinner] = useState(null);
+  const [tie, setTie] = useState(false);
 
   const handleClick = (index) => {
     if (squares[index] || winner) return;
 
+    
     const newSquares = [...squares];
     newSquares[index] = xIsNext ? "X" : "O";
+    
+    setSquares(newSquares);
+    setXIsNext(!xIsNext);
 
     const won = checkWin(newSquares);
     if (won) setWinner(won);
-
-    setSquares(newSquares);
-    setXIsNext(!xIsNext);
+    
+    if (!won && newSquares.every((square) => square !== null)) {
+      setTie(true);
+    }
+    
   };
+
+  console.log({tie, squares});
+  
 
   const renderSquare = (num) => {
     return <Square value={squares[num]} onClick={() => handleClick(num)} />;
@@ -74,7 +84,12 @@ export default function TicTacToe() {
         <div id="winnerArea" className="instructionsStyle">
           Congratulations!!! Winner is : <span>{winner}</span>
         </div>
-      ) : (
+      ) : 
+      tie ? (
+           <div id="winnerArea" className="instructionsStyle">
+          Oops!!! It's a Tie<span>{winner}</span>
+        </div>
+        ) : (
         <div id="statusArea" className="instructionsStyle">
           Next player: <span>{xIsNext ? "X" : "O"}</span>
         </div>
